@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './app';
-
 
 import {
     BrowserRouter as Router,
@@ -11,9 +9,9 @@ import {
     Route
 } from "react-router-dom";
 
-import PageOne from './pages/PageOne'
-import PageTwo from './pages/PageTwo'
-import PageThree from './pages/PageThree'
+import PageOne from 'src/pages/PageOne'
+import PageTwo from 'src/pages/PageTwo'
+import PageThree from 'src/pages/PageThree'
 
 import './styles/layout.scss'
 
@@ -28,6 +26,7 @@ const Navigation = () => (
 );
 
 ReactDOM.render(
+<body>
     <React.StrictMode>
         <Router>
             <Switch>
@@ -47,6 +46,8 @@ ReactDOM.render(
                 </div>
             </Switch>
         </Router>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
+</body>
+,
+document.getElementById('root')
 );
