@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './app';
+// import App from './app';
+
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -9,12 +11,20 @@ import {
     Route
 } from "react-router-dom";
 
-const Root = () => (
-    <div>
-        <Link to="/page-one">Page One</Link><br />
-        <Link to="/page-two">Page Two</Link><br />
-        <Link to="/page-three">Page Three</Link>
-    </div>
+import PageOne from './pages/PageOne'
+import PageTwo from './pages/PageTwo'
+import PageThree from './pages/PageThree'
+
+import './styles/layout.sass'
+
+const Navigation = () => (
+    <>
+        <div>
+            <Link to="/page-one">Page One</Link><br />
+            <Link to="/page-two">Page Two</Link><br />
+            <Link to="/page-three">Page Three</Link>
+        </div>
+    </>
 );
 
 ReactDOM.render(
@@ -22,11 +32,19 @@ ReactDOM.render(
         <Router>
             <Switch>
                 <Route path="/" exact>
-                    <Root />
+                    <Navigation />
                 </Route>
-                <Route path="/:id">
-                    <App />
-                </Route>
+                <div id='layout'>
+                    <Route path="/page-one">
+                        <PageOne></PageOne>
+                    </Route>
+                    <Route path="/page-two">
+                        <PageTwo></PageTwo>
+                    </Route>
+                    <Route path="/page-three">
+                        <PageThree></PageThree>
+                    </Route>
+                </div>
             </Switch>
         </Router>
     </React.StrictMode>,
