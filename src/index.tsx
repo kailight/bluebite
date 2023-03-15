@@ -15,7 +15,7 @@ import PageOne from './pages/PageOne'
 import PageTwo from './pages/PageTwo'
 import PageThree from './pages/PageThree'
 
-import './styles/layout.sass'
+import './styles/layout.scss'
 
 const Navigation = () => (
     <>
