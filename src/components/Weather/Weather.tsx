@@ -1,12 +1,12 @@
-import './Card.scss'
+import '../Card.scss'
 import './Weather.scss'
 
 import Cloudy from 'src/icons/cloudy.svg'
 import Rainy from 'src/icons/rain.svg'
 
-export default function CardOne() {
+export default function Weather() {
     return (
-        <div className="card card2">
+        <div className="card weather">
             <div className="status-area">
                 <div className="sky-icon">
                     <img src={Cloudy} />

@@ -12,7 +12,7 @@ I do not like the idea of CSS-in-JS, as it mixes concepts. So I do not use CSS m
 
 For same reason of mixing concepts, I do not to use Tailwind and its family frameworkds.
 
-### Tag 0.1
+### Tag v0.1
 
 ```bash
 git checkout v0.1
@@ -26,10 +26,38 @@ When I got to the point
 
 > Conditions are components that render their children list when a specific variable is equal to the given value.
 
-I personally do not feel its necessary to use Component for simple conditions. There are props for it.
-
-I do not understand from the design what are the buttons and how the UX should work.
-
 So I checked API endpoints and realised that backend not just provides data but also has declarations on which components to render.
 
 
+### Tag v0.2
+
+```bash
+git checkout v0.2
+```
+
+At this point UX looked like this
+
+<img src="">
+
+### Tag v0.3
+
+```bash
+git checkout v0.3
+```
+
+Then, as we had conditional components, I created component Factory.
+
+Then, I had to rename Card01 to **Image** and Card02 to **Weather**
+
+<img src="">
+
+
+```bash
+git checkout v0.4
+```
+
+Then, passed the image options to Image component as props. I am used to use background images for decorative purposes, so I left it as background, without alt.
+
+Weather component data, however, only contained lat/long and was useless for display, so I left **mock data** in place in **Weather** component.
+
+<img src="">

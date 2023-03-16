@@ -3,6 +3,7 @@ import CardTwo from 'src/components/CardTwo'
 import 'src/pages/Page.scss'
 import { useEffect, useState } from "react";
 
+import Image from 'src/components/Image/Image'
 import Weather from 'src/components/Weather/Weather'
 
 export default function PageOne() {
@@ -24,8 +25,8 @@ export default function PageOne() {
 
 
     const components = {
-        image: CardOne,
-        weather: CardTwo
+        image: Image,
+        weather: Weather
     }
 
     const ComponentFactory:(config:any) => JSX.Element = (config:{ type : 'image'|'weather', options: any } ) => {
@@ -50,7 +51,6 @@ export default function PageOne() {
             }
             const data = responseData.data
             setData(data)
-
 
             let componentsIds:Array<any> = []
             data.lists.forEach( (list:List) => {
@@ -79,7 +79,7 @@ export default function PageOne() {
         <div className="page">
             {
                 componentList.map( (component:any, i:number) => {
-                    return (<ComponentFactory type={component.type} options={component.props} key={i} />)
+                    return (<ComponentFactory type={component.type} options={component.options} key={i} />)
                 })
             }
         </div>
