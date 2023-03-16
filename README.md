@@ -20,13 +20,17 @@ git checkout v0.1
 
 Remembering React perks, I have created basic layout using Components, no data request implemented yet.
 
-Now I'd like to properly read original README.MD and see projects requirements again, to see if I should load data per-card or on page level.
+So I, as a developer with freelance experience, first created the html/css layout, and made it look like this already:
+
+![Screenshot](readme-screenshot-001.png)
+
+Then I'd like to properly read original README.MD and see projects requirements again, to see if I should load data per-card or on page level.
 
 When I got to the point
 
 > Conditions are components that render their children list when a specific variable is equal to the given value.
 
-So I checked API endpoints and realised that backend not just provides data but also has declarations on which components to render.
+I was confused, so I checked API endpoints and realised that backend not just provides data but also has declarations on which components to render.
 
 
 ### Tag v0.2
@@ -37,7 +41,7 @@ git checkout v0.2
 
 At this point UX looked like this
 
-<img src="">
+![Screenshot](readme-screenshot-002.png)
 
 ### Tag v0.3
 
@@ -49,7 +53,7 @@ Then, as we had conditional components, I created component Factory.
 
 Then, I had to rename Card01 to **Image** and Card02 to **Weather**
 
-<img src="">
+![Screenshot](readme-screenshot-003.png)
 
 
 ```bash
@@ -60,4 +64,4 @@ Then, passed the image options to Image component as props. I am used to use bac
 
 Weather component data, however, only contained lat/long and was useless for display, so I left **mock data** in place in **Weather** component.
 
-<img src="">
+![Screenshot](readme-screenshot-004.png)
