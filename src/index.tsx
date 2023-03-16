@@ -26,7 +26,6 @@ const Navigation = () => (
 );
 
 ReactDOM.render(
-<body>
     <React.StrictMode>
         <Router>
             <Switch>
@@ -47,7 +46,6 @@ ReactDOM.render(
             </Switch>
         </Router>
     </React.StrictMode>
-</body>
 ,
 document.getElementById('root')
 );
