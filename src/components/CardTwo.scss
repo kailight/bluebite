@@ -1,0 +1,52 @@
+.card2 {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    font-weight: 300;
+    gap: 0.5rem;
+    .status-area {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    .location-area {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+    .sky-icon {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 3rem;
+        height: 5rem;
+        img {
+            width: 6rem;
+            height: 5rem;
+        }
+    }
+    .temperature-wrapper {
+        .temperature {
+            font-size: 2rem;
+        }
+    }
+    .prediction-area {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0;
+        .day {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 0.8rem;
+            width: 3rem;
+            img {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+}

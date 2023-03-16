@@ -3,7 +3,7 @@ import './CardOne.scss'
 
 export default function CardOne() {
     return (
-        <div className="card">
+        <div className="card card1">
 
         </div>
     );
