@@ -16,9 +16,24 @@ export default function PageOne() {
     interface Data {
         lists: Array<List>
     }
+    interface ComponentList extends Array<any> {}
 
     const [data,setData] = useState<Data>({ lists:[] } )
+    const [componentList, setComponentList] = useState<ComponentList>([])
     const [strData,setStrData] = useState<string>('no data' )
+
+
+    const components = {
+        image: CardOne,
+        weather: CardTwo
+    }
+
+    const ComponentFactory:(config:any) => JSX.Element = (config:{ type : 'image'|'weather', options: any } ) => {
+        let Component = components[config.type];
+        return (
+            <Component { ...config.options } />
+        )
+    }
 
     useEffect( () => {
 
@@ -33,23 +48,40 @@ export default function PageOne() {
                 console.error('Failed to fetch data from backend')
                 return
             }
-            setData(responseData.data)
+            const data = responseData.data
+            setData(data)
+
+
+            let componentsIds:Array<any> = []
+            data.lists.forEach( (list:List) => {
+                componentsIds = list.components
+                console.info(list);
+            })
+
+            let componentListConfig:Array<any> = []
+            componentsIds.forEach( ( componentId:number ) => {
+                const componentData = data.components.find( (c:any) => c.id === componentId )
+                const componentFactoryConfig = {
+                    type: componentData.type,
+                    options: componentData.options
+                }
+                componentListConfig.push(componentFactoryConfig)
+            })
+            console.info(componentListConfig);
+            setComponentList(componentListConfig)
             setStrData( JSON.stringify(responseData.data,null, '  ') )
-
         })()
-
     }, [])
+
+
 
     return (
         <div className="page">
-            <CardOne></CardOne>
-            <CardTwo></CardTwo>
             {
-                data?.lists?.[0]?.components?.forEach( (list:any) => {
-                    <code style={{ whiteSpace: 'pre' }}>{list._id}</code>
+                componentList.map( (component:any, i:number) => {
+                    return (<ComponentFactory type={component.type} options={component.props} key={i} />)
                 })
             }
-            <code style={{ whiteSpace: 'pre' }}>{strData}</code>
         </div>
     );
 }
