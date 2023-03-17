@@ -8,6 +8,9 @@ import Weather from 'src/components/Weather/Weather'
 
 export default function PageOne() {
 
+    // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
+    let isMounted = true
+
     const url = 'http://localhost:3030/page/page-one'
 
     interface List {
@@ -21,7 +24,6 @@ export default function PageOne() {
 
     const [data,setData] = useState<Data>({ lists:[] } )
     const [componentList, setComponentList] = useState<ComponentList>([])
-    const [strData,setStrData] = useState<string>('no data' )
 
 
     const components = {
@@ -68,8 +70,9 @@ export default function PageOne() {
                 componentListConfig.push(componentFactoryConfig)
             })
             console.info(componentListConfig);
-            setComponentList(componentListConfig)
-            setStrData( JSON.stringify(responseData.data,null, '  ') )
+            if (isMounted) {
+                setComponentList(componentListConfig)
+            }
         })()
     }, [])
 
