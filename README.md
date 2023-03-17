@@ -123,3 +123,38 @@ As there were no eye icons in icons folder I had to download icons in SVG (I use
 
 ![Screenshot](/readme-screenshot-006.png)
 
+
+### Tag v0.7
+
+```bash
+git checkout v0.7
+```
+
+Before moving to part-three I noticed I forgot to implement **Conditions** component from part2.
+
+To my surprise, it was required to be a Component.
+
+I would rather mutate original data or create a new nested data set and then base the ComponentList on it.
+
+I believe this would be 2x faster approach, and way easier to read as we could manipulate the data in one place.
+
+![Screenshot](/readme-screenshot-007.png)
+
+
+
+## Summary
+
+All in all, the project took me around 10 hours to code in the flow, while in Vue it would take around 2. This is because of combination of my unfamiliarity with React infrastructure and approaches, and due to in React it actually takes more time for simple things than in Vue.
+
+I think I performed at a middle level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
+
+As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** was wasted.
+
+With the average salaries on US market of around $10.000 per month per middle developer, 2x increase in development time of a 10-developer team costs $100.000 on average per month.
+
+With better planning ahead, I could architect the data structures and the components better, saving Team's Human Hours and Product Budget.
+
+At this point of my career, I believe proper business processes are more sometimes more important than technological solutions or code quality.
+
+I also solidified my judgement that React is way worse for SCRUM than Vue, and its better not to use TypeScript during MVP as it rather increases development time without actual benefits.
+
