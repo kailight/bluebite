@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import Image from 'src/components/Image/Image'
 import Weather from 'src/components/Weather/Weather'
+import Toggler from 'src/components/Toggler/Toggler'
 
 export default function PageTwo() {
 
@@ -15,20 +16,35 @@ export default function PageTwo() {
         id: any
         components: any
     }
+
+    interface Variable {
+        name: string // "show weather"
+        type: string // "string"
+        initialValue: string // "show"|"hide"
+    }
+
     interface Data {
         lists: Array<List>
+        variables ?: Array<Variable>
     }
-    interface ComponentList extends Array<any> {}
+
+    interface ComponentList extends Array<ComponentListItem> {}
+
+    interface ComponentListItem {
+        type: 'image'|'weather'|'toggler'
+        options: any
+    }
 
     const [data,setData] = useState<Data>({ lists:[] } )
     const [componentList, setComponentList] = useState<ComponentList>([])
 
     const components = {
         image: Image,
-        weather: Weather
+        weather: Weather,
+        toggler: Toggler
     }
 
-    const ComponentFactory:(config:any) => JSX.Element = (config:{ type : 'image'|'weather', options: any } ) => {
+    const ComponentFactory:(config:any) => JSX.Element = (config:ComponentListItem ) => {
         let Component = components[config.type];
         return (
             <Component { ...config.options } />
@@ -51,12 +67,24 @@ export default function PageTwo() {
             const data = responseData.data
 
             let componentsIds:Array<any> = []
+            const componentListConfig:ComponentList = []
+
             data.lists.forEach( (list:List) => {
                 componentsIds = list.components
                 console.info(list);
             })
 
-            let componentListConfig:Array<any> = []
+            data.variables.forEach( (variable:Variable) => {
+                const componentFactoryConfig:ComponentListItem = {
+                    type: 'toggler',
+                    options: {
+                        name: variable.name,
+                        value: variable.initialValue
+                    }
+                }
+                componentListConfig.push(componentFactoryConfig)
+            })
+
             componentsIds.forEach( ( componentId:number ) => {
                 const componentData = data.components.find( (c:any) => c.id === componentId )
                 const componentFactoryConfig = {
@@ -65,7 +93,9 @@ export default function PageTwo() {
                 }
                 componentListConfig.push(componentFactoryConfig)
             })
-            console.info(componentListConfig);
+
+            console.info('componentListConfig', componentListConfig);
+
             if (isMounted) {
                 setComponentList(componentListConfig)
             }

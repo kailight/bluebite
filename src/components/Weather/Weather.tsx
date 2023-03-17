@@ -1,11 +1,11 @@
 import '../Card.scss'
 import './Weather.scss'
 
-import Cloudy from 'src/icons/cloudy.svg'
-import Rainy from 'src/icons/rain.svg'
-import Clear from 'src/icons/clear-day.svg'
+import CloudyImage from 'src/icons/cloudy.svg'
+import RainyImage from 'src/icons/rain.svg'
+import ClearImage from 'src/icons/clear-day.svg'
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 interface WeatherComponentProps {
     lat: string,
@@ -13,9 +13,9 @@ interface WeatherComponentProps {
 }
 
 const conditions2Icons:any = {
-    cloudy  :     Cloudy,
-    rain    :     Rainy,
-    'clear-day':  Clear
+    cloudy  :     CloudyImage,
+    rain    :     RainyImage,
+    'clear-day':  ClearImage
 }
 
 export default function Weather( { lat, lon }:WeatherComponentProps ) {

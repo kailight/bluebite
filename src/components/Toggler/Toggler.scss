@@ -1,0 +1,27 @@
+.toggler {
+    cursor: pointer !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: #2e71f0;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    color: #fff;
+    .action {
+        font-size: 1.6rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .icon {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        img {
+            width: 3rem;
+            color: #fff;
+        }
+    }
+}
