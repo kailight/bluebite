@@ -1,44 +1,32 @@
 import 'src/pages/Page.scss'
 import { useEffect, useState } from "react";
 
-import Image from 'src/components/Image/Image'
-import Weather from 'src/components/Weather/Weather'
-import Toggler from 'src/components/Toggler/Toggler'
-import Condition from 'src/components/Condition/Condition'
+import ComponentList from "../components/ComponentList";
 
-interface List {
-    id: any
-    components: any
-}
+import type {
+    IComponentTree,
+    IComponentList,
+    IComponentListItem,
+    IList,
+    IVariable,
+    IComponent,
+    IData
+} from 'src/types/index'
 
-interface Variable {
-    name        : string // "show weather"
-    type        : string // "string"
-    initialValue: string // "show"|"hide"
-    value       : string
-}
+// import useLists from "src/composables/useLists";
+// import useComponents from "src/composables/useComponents"
+// import useVariables from "src/composables/useVariables"
+// import useStore from "src/composables/useStore"
+// import useStore2 from "src/composables/useStore2"
+import { createStore, useStore } from "src/store"
 
-interface Component {
-    id      : number
-    type    : string
-    options : any
-}
+createStore({
+    variables:  [],
+    lists:      [],
+    components: []
+})
 
-interface Data {
-    lists       : Array<List>
-    variables   ?: Array<Variable>
-    components  : Array<Component>
-}
-
-interface ComponentList extends Array<ComponentListItem> {}
-
-interface ComponentListItem {
-    type: 'image'|'weather'|'button'|'condition'
-    options: any
-}
-
-
-
+// import { getItem } from "src/store";
 
 export default function PageTwo() {
 
@@ -47,24 +35,18 @@ export default function PageTwo() {
 
     const url = 'http://localhost:3030/page/page-two'
 
+    // let { _, setVariables } = useStore2()
+    let [ variables, setVariables ] = useStore('variables')
+    let [ lists, setLists ]         = useStore('lists')
 
-    const [data, setData] = useState<Data>({} as Data )
-    const [componentList, setComponentList] = useState<ComponentList>([])
+    const [data, setData] = useState<IData>({} as IData )
+    const [componentTree, setComponentTree] = useState<IComponentTree>([])
+    // const [lists, setLists] = useLists()
+    // const [components, setComponents] = useComponents()
+    // const [variables, setVariables] = useVariables()
 
-    const components = {
-        image       : Image,
-        weather     : Weather,
-        button      : Toggler,
-        condition   : Condition
-    }
-
-    const ComponentFactory:(config:any) => JSX.Element = (config:ComponentListItem ) => {
-        let Component = components[config.type];
-
-        return (
-            <Component { ...config.options } />
-        )
-    }
+    // const variables = useStore((state:any) => state.variables)
+    // const setVariables = (variables:any) => useStore( (state:any) => state.setVariables(variables))
 
     const toggleVariable = (variableName:string, variableValue: string) => {
         console.info('toggleVariable()', variableName, variableValue);
@@ -82,18 +64,12 @@ export default function PageTwo() {
 
     }
 
-    const buildComponentsList = () => {
-        console.info('buildComponentsList()', data);
+    const buildComponentsTree = () => {
+        console.info('buildComponentsTree()', data);
 
         if (!data.components) return
 
         let componentsIds:Array<any> = []
-        const componentListConfig:ComponentList = []
-
-        data.lists.forEach( (list:List) => {
-            console.info('list', list);
-            componentsIds = componentsIds.concat(list.components)
-        })
 
         /*
         data.variables?.forEach( (variable:Variable) => {
@@ -109,28 +85,52 @@ export default function PageTwo() {
         })
         */
 
-        componentsIds.forEach( ( componentId:number ) => {
-            const componentData = data.components.find( (c:any) => c.id === componentId )
-            const componentFactoryConfig = {
-                type: componentData?.type,
-                options: componentData?.options
-            }
-            console.info(componentFactoryConfig.type)
-            if (componentFactoryConfig.type === 'button') {
-                componentFactoryConfig.options.onToggle = toggleVariable
-            }
-            componentListConfig.push(componentFactoryConfig as any)
+        const componentTree:IComponentTree = []
+
+        data.lists.forEach( (list:IList) => {
+            console.info('list', list);
+
+            const componentList:IComponentList = {} as any
+            componentList.id = list.id
+            componentList.components = []
+
+            /*
+            list.components.forEach( ( componentId:number ) => {
+                const componentData = data.components.find( (c:any) => c.id === componentId )
+                const componentFactoryConfig = {
+                    type: componentData?.type,
+                    options: componentData?.options
+                }
+                console.info(componentFactoryConfig.type)
+                if (componentFactoryConfig.type === 'button') {
+                    componentFactoryConfig.options.onToggle = toggleVariable
+                }
+                componentList.components.push(componentFactoryConfig as any)
+            })
+            componentTree.push(componentList)
+            */
+
         })
 
-        console.info('componentListConfig', componentListConfig);
-        setComponentList(componentListConfig)
+        // setComponentTree(componentTree)
 
+        // console.info('before SetLists', data.lists);
+        // setLists(data.lists)
+        // console.info('after SetLists', lists);
+        // setComponents(data.components)
+
+        console.info('before setVariables', variables);
+        setVariables(data.variables)
+        setLists(data.lists)
+
+        // setVariables(data.variables)
         // return componentListConfig
+
     }
 
     useEffect( () => {
         if (isMounted) {
-            buildComponentsList()
+            buildComponentsTree()
         }
         return () => { isMounted = false }
     },[data])
@@ -151,7 +151,7 @@ export default function PageTwo() {
                 return
             }
             const data = responseData.data
-            data.variables.forEach( (variable:Variable) => {
+            data.variables.forEach( (variable:IVariable) => {
                 variable.value = variable.initialValue
             })
             if (isMounted) {
@@ -168,8 +168,10 @@ export default function PageTwo() {
     return (
         <div className="page">
             {
-                componentList.map( (component:any, i:number) => {
-                    return (<ComponentFactory type={component.type} options={component.options} key={i} />)
+                lists.map( (list:IComponentList, i:number) => {
+                    return (
+                        <ComponentList id={list.id} key={i}></ComponentList>
+                    )
                 })
             }
         </div>
