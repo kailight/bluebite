@@ -134,18 +134,17 @@ Before moving to part-three I noticed I forgot to implement **Conditions** compo
 
 To my surprise, it was required to be a Component.
 
-I would rather mutate original data or create a new nested data set and then base the ComponentList on it.
+So, I have reviewed the data structures once again (variables, lists, components)
 
-The complexity was because since Condition should be component, and because **Condition** is a Component that has **Lists** meaning recursion, very different approach with a store would be required to set the conditional recursion up.
+I noticed the extra complexity was because since Condition should be component, and because **Condition** is a Component that has **Lists** meaning recursion, very different approach with a store would be required to set the conditional recursion up.
 
-I'm against obscure solutions with a lot of boilerplate code.
+I'm against obscure solutions with a lot of boilerplate code such as useContext and useReducer, Redux and Zustand.
 
-So while I know how to deal with React stores with useContext and useReducer, Redux and Zustand, I prefer to use
+I prefer to use
 [this simple solution](https://dev.to/fabionogueira/react-without-redux-simple-store-4don)
  as my go-to tool for simple store.
 
 So I moved it to **store** dir, made slight modifications to make it work, then created a set of hooks in composables folder to simplify the usage of them for various cases to make the code more clean (meaning more simple to read, easier to maintain, **less Technical Debt**)
-
 
 ### Tag v0.8
 
