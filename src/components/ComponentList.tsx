@@ -5,8 +5,7 @@ import {
 import ComponentFactory from "src/components/ComponentFactory";
 import useStore from "src/composables/useStore"
 import useList from "src/composables/useList"
-import useComponent from "src/composables/useComponent"
-import useCondition from "src/composables/useCondition"
+import useComponentsByIds from "src/composables/useComponentsByIds";
 
 interface ComponentListProps {
     id : number
@@ -20,27 +19,25 @@ export default function ComponentList(props:ComponentListProps) {
 
     const list = useList(props.id)
 
-    if (!lists) {
-        return (<div>Nothing found</div>)
-    }
+    const componentIds:Array<number> = Array.isArray(list.components) ? list.components : [list.components]
 
-    const componentIds = list.components
-
-    const components:Array<IComponentListItem> = []
-    componentIds.forEach( (componentId:number) => {
-        const component = useComponent(componentId)
-        components.push(component)
-    })
+    const components:Array<IComponentListItem> = useComponentsByIds(componentIds)
 
     console.info('ComponentList.components', components);
+
+    if (!lists) {
+        return (
+            <div>Nothing found</div>
+        )
+    }
 
     return (
         <>
             {
                 components.map( (component:IComponentListItem, i:number) => {
                     return (
-                        <div key={i}>{JSON.stringify(component)}</div>
-                        // <ComponentFactory type={component.type} options={component.options} key={i} />
+                        // <div key={i}>{JSON.stringify(component)}</div>
+                        <ComponentFactory type={component.type} options={component.options} children={component.children} key={i} />
                     )
                 })
             }

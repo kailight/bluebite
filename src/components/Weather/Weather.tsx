@@ -42,7 +42,7 @@ export default function Weather( { lat, lon }:WeatherComponentProps ) {
             }
             const data = responseData.data
 
-            // Misspell
+            // You have grammatical Error in data
             data.upcoming = data.upcomming
 
             if (isMounted) {
@@ -50,6 +50,9 @@ export default function Weather( { lat, lon }:WeatherComponentProps ) {
             }
 
         })()
+
+        return () => { isMounted = false }
+
     }, [])
 
     interface Data {

@@ -31,8 +31,9 @@ interface IComponentList {
 interface IComponentTree extends Array<IComponentList> {}
 
 interface IComponentListItem {
-    type: 'image'|'weather'|'button'|'condition'
-    options: any
+    type        : 'image'|'weather'|'button'|'condition'
+    options     : any
+    children    ?: any
 }
 
 export type {

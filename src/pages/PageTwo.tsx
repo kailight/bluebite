@@ -40,79 +40,9 @@ export default function PageTwo() {
     } = useStore()
 
 
-    const toggleVariable = (variableName:string, variableValue: string) => {
-        console.info('toggleVariable()', variableName, variableValue);
-
-        variables?.forEach( (variable:any) => {
-            if (variable.name === variableName) {
-                variable.value = variableValue
-            }
-        })
-
-        setVariables(variables)
-
-    }
-
-    const setData = () => {
-        console.info('buildComponentsTree()');
-
-        /*
-        data.variables?.forEach( (variable:Variable) => {
-            const componentFactoryConfig:ComponentListItem = {
-                type: 'toggler',
-                options: {
-                    name: variable.name,
-                    value: variable.value
-                }
-            }
-            componentFactoryConfig.options.onToggle = toggleVariable
-            componentListConfig.push(componentFactoryConfig)
-        })
-        */
-
-        const componentTree:IComponentTree = []
-
-        /*
-        lists.forEach( (list:IList) => {
-            console.info('list', list);
-
-            const componentList:IComponentList = {} as any
-            componentList.id = list.id
-            componentList.components = []
-
-
-            list.components.forEach( ( componentId:number ) => {
-                const componentData = data.components.find( (c:any) => c.id === componentId )
-                const componentFactoryConfig = {
-                    type: componentData?.type,
-                    options: componentData?.options
-                }
-                console.info(componentFactoryConfig.type)
-                if (componentFactoryConfig.type === 'button') {
-                    componentFactoryConfig.options.onToggle = toggleVariable
-                }
-                componentList.components.push(componentFactoryConfig as any)
-            })
-            componentTree.push(componentList)
-        })
-        */
-
-        // setComponentTree(componentTree)
-
-        // console.info('before SetLists', data.lists);
-        // setLists(data.lists)
-        // console.info('after SetLists', lists);
-        console.info('before setVariables', variables);
-
-        // setVariables(data.variables)
-        // return componentListConfig
-
-    }
-
     const [enabledLists, setEnabledLists] = useState([] as Array<any>)
 
     useEffect( () => {
-        let newValue:Array<any> = []
 
         if (!lists.length) {
             return () => {}
@@ -131,7 +61,13 @@ export default function PageTwo() {
         setEnabledLists( unconditionalLists )
         console.info('enabledLists', enabledLists);
 
-    }, [lists, components] )
+    }, [lists, components, variables] )
+
+
+
+    useEffect( () => {
+        console.info('variables changed!');
+    }, [variables] )
 
 
 

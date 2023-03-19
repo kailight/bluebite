@@ -3,11 +3,11 @@ import './Toggler.scss'
 
 import EyeOpenImage from 'src/icons/eye-white.svg'
 import EyeClosedImage from 'src/icons/eye-slash-white.svg'
+import useVariables from "../../composables/useVariables";
 
 interface TogglerComponentProps {
     variable    : string,
     value       : 'show'|'hide'
-    onToggle    : (propName:string, newValue:string) => {}
 }
 
 const icon2Image = {
@@ -18,6 +18,8 @@ const icon2Image = {
 export default function Toggler(props:TogglerComponentProps) {
     console.info('Toggler props', props);
 
+    const { variables, setVariable } = useVariables()
+
     const capitalize = (str:string) => {
         const arr = str.split("");
         arr[0] = arr[0].toLocaleUpperCase();
@@ -25,17 +27,17 @@ export default function Toggler(props:TogglerComponentProps) {
     }
 
     const onToggle = () => {
+        console.info('onToggle()', props.value);
+
         let propName = props.variable
-        let newValue
+        let newValue = props.value
 
-        if (props.value === 'show') {
-            newValue = 'hide'
-        }
-        if (props.value === 'hide') {
-            newValue = 'show'
+        if (!newValue) {
+            console.error('Variable has no value')
+            return
         }
 
-        props.onToggle(propName, newValue || '')
+        setVariable(propName, newValue)
 
     }
 

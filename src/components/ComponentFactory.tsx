@@ -16,7 +16,7 @@ const ComponentFactory:(config:any) => JSX.Element = (config:IComponentListItem 
     let Component = componentType2Component[config.type];
 
     return (
-        <Component { ...config.options } />
+        <Component { ...config.options } children={config.children} />
     )
 }
 
