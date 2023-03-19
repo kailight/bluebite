@@ -6,10 +6,8 @@ import type {
 
 const useVariables = () => {
 
-    // const variables:Array<IVariable> = useStore((state) => state.variables )
-    // const setVariables = (variables:Array<IVariable>) => { useStore((state) => state.setVariables(variables) ) }
-    //
-    // return [variables, setVariables]
+    const store = useStore()
+    return store.variables
 
 }
 

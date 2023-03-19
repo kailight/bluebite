@@ -1,18 +1,32 @@
-import { create as createStore } from 'zustand'
+import { createStore, useStore, getItem, setItem } from "src/store";
 
-import type {
-    IVariable,
-    IList,
-    IComponent
-} from 'src/types'
+let storeInitialized = false
 
-const useStore = createStore((set) => ({
-    variables: [],
-    lists: [],
-    components: [],
-    setVariables:  (variables:Array<IVariable>)   => set({ variables }),
-    setLists:      (lists:Array<IList>)           => set({ lists }),
-    setComponents: (components:Array<IComponent>) => set({ components }),
-}))
+const useStore2 = () => {
 
-export default useStore
+    if (!storeInitialized) {
+        createStore({
+            variables:  [],
+            lists:      [],
+            components: []
+        })
+        storeInitialized = true
+    }
+
+    const [variables,   setVariables]   = useStore('variables')
+    const [lists,       setLists]       = useStore('lists')
+    const [components,  setComponents]  = useStore('components')
+
+
+    return {
+        variables,
+        components,
+        lists,
+        setVariables,
+        setComponents,
+        setLists,
+    }
+
+}
+
+export default useStore2

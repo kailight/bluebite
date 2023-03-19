@@ -18,13 +18,7 @@ import type {
 // import useVariables from "src/composables/useVariables"
 // import useStore from "src/composables/useStore"
 // import useStore2 from "src/composables/useStore2"
-import { createStore, useStore } from "src/store"
-
-createStore({
-    variables:  [],
-    lists:      [],
-    components: []
-})
+import useStore from "src/composables/useStore"
 
 // import { getItem } from "src/store";
 
@@ -36,40 +30,31 @@ export default function PageTwo() {
     const url = 'http://localhost:3030/page/page-two'
 
     // let { _, setVariables } = useStore2()
-    let [ variables, setVariables ] = useStore('variables')
-    let [ lists, setLists ]         = useStore('lists')
+    const {
+        variables,
+        setVariables,
+        lists,
+        setLists,
+        components,
+        setComponents
+    } = useStore()
 
-    const [data, setData] = useState<IData>({} as IData )
-    const [componentTree, setComponentTree] = useState<IComponentTree>([])
-    // const [lists, setLists] = useLists()
-    // const [components, setComponents] = useComponents()
-    // const [variables, setVariables] = useVariables()
-
-    // const variables = useStore((state:any) => state.variables)
-    // const setVariables = (variables:any) => useStore( (state:any) => state.setVariables(variables))
 
     const toggleVariable = (variableName:string, variableValue: string) => {
         console.info('toggleVariable()', variableName, variableValue);
 
-        const newData = Object.assign({}, data)
-
-        newData?.variables?.forEach( (variable:any) => {
+        variables?.forEach( (variable:any) => {
             if (variable.name === variableName) {
                 variable.value = variableValue
             }
         })
 
-        console.info('newData', newData)
-        setData(newData)
+        setVariables(variables)
 
     }
 
-    const buildComponentsTree = () => {
-        console.info('buildComponentsTree()', data);
-
-        if (!data.components) return
-
-        let componentsIds:Array<any> = []
+    const setData = () => {
+        console.info('buildComponentsTree()');
 
         /*
         data.variables?.forEach( (variable:Variable) => {
@@ -87,14 +72,15 @@ export default function PageTwo() {
 
         const componentTree:IComponentTree = []
 
-        data.lists.forEach( (list:IList) => {
+        /*
+        lists.forEach( (list:IList) => {
             console.info('list', list);
 
             const componentList:IComponentList = {} as any
             componentList.id = list.id
             componentList.components = []
 
-            /*
+
             list.components.forEach( ( componentId:number ) => {
                 const componentData = data.components.find( (c:any) => c.id === componentId )
                 const componentFactoryConfig = {
@@ -108,32 +94,45 @@ export default function PageTwo() {
                 componentList.components.push(componentFactoryConfig as any)
             })
             componentTree.push(componentList)
-            */
-
         })
+        */
 
         // setComponentTree(componentTree)
 
         // console.info('before SetLists', data.lists);
         // setLists(data.lists)
         // console.info('after SetLists', lists);
-        // setComponents(data.components)
-
         console.info('before setVariables', variables);
-        setVariables(data.variables)
-        setLists(data.lists)
 
         // setVariables(data.variables)
         // return componentListConfig
 
     }
 
+    const [enabledLists, setEnabledLists] = useState([] as Array<any>)
+
     useEffect( () => {
-        if (isMounted) {
-            buildComponentsTree()
+        let newValue:Array<any> = []
+
+        if (!lists.length) {
+            return () => {}
         }
-        return () => { isMounted = false }
-    },[data])
+
+        const conditionalListsIds:Array<number> = []
+        components.forEach( ( component:IComponent ) => {
+            if (component.type === 'condition') {
+                conditionalListsIds.push(component.children)
+            }
+        })
+        const unconditionalLists = lists.filter( (list:IList) => {
+            return !conditionalListsIds.includes(list.id)
+        })
+
+        setEnabledLists( unconditionalLists )
+        console.info('enabledLists', enabledLists);
+
+    }, [lists, components] )
+
 
 
     useEffect( () => {
@@ -154,10 +153,12 @@ export default function PageTwo() {
             data.variables.forEach( (variable:IVariable) => {
                 variable.value = variable.initialValue
             })
-            if (isMounted) {
-                setData(data)
-            }
 
+            if (isMounted) {
+                setComponents(data.components)
+                setVariables(data.variables)
+                setLists(data.lists)
+            }
             return () => { isMounted = false }
 
         })()
@@ -168,7 +169,7 @@ export default function PageTwo() {
     return (
         <div className="page">
             {
-                lists.map( (list:IComponentList, i:number) => {
+                enabledLists?.map( (list:IComponentList, i:number) => {
                     return (
                         <ComponentList id={list.id} key={i}></ComponentList>
                     )

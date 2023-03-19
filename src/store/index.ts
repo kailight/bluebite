@@ -22,12 +22,14 @@ function useStore(key:string) {
     const [value, setData] = useState(store[key])
 
     useEffect(() => {
-        console.info('data change detected');
 
         const fn = dispatcher.on('data', (data:any)=>{
-            let value = data[key]
+            let value = data?.[key] || undefined
 
-            console.info('test', key, value);
+            // console.info('test', key, value);
+            if (value == undefined) {
+                return
+            }
 
             if (Array.isArray(value)){
                 setData(value)

@@ -11,9 +11,10 @@ interface IVariable {
 }
 
 interface IComponent {
-    id      : number
-    type    : string
-    options : any
+    id          : number
+    type        : string
+    options     : any
+    children   ?: any
 }
 
 interface IData {

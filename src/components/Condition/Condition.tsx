@@ -5,7 +5,7 @@ interface ConditionComponentProps {
         variable: string,
         value: string
     }
-    children: string
+    children: number
 }
 
 import ComponentFactory from "src/components/ComponentFactory";
@@ -14,18 +14,21 @@ import ComponentFactory from "src/components/ComponentFactory";
 import useList from 'src/composables/useList'
 
 export default function Condition(props:ConditionComponentProps) {
-    console.info('props', props);
+    console.info('Condition.props', props);
 
     const ConditionalList = () => {
         let condition = true
-        if (condition) {
+
+        if (!condition) {
             return (
-                ComponentList(props)
+                <div>Condition is not met</div>
             )
         }
+
         return (
-            <></>
+            <ComponentList id={props.children}></ComponentList>
         )
+
     }
 
     // <ConditionalList />

@@ -1,9 +1,9 @@
-import useLists from "./useLists";
+import useStore from 'src/composables/useStore'
 
 const useList = (listId:number) => {
     console.info('useList()', listId);
 
-    const [lists] = useLists()
+    const { lists } = useStore()
 
     console.info('useList().lists', lists);
 
