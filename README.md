@@ -154,7 +154,7 @@ git checkout v0.8
 
 At this point I simply copied page-two code to page-three code and made sure it all works properly
 
-![Screenshot](/readme-screenshot-007.png)
+![Screenshot](/readme-screenshot-008.png)
 
 ## Summary
 
@@ -162,13 +162,11 @@ All in all, the project took me around 20 hours, while in Vue it would take arou
 
 This is because I am not too familiar with React infrastructure and approaches, but also to in React it actually takes more time for simple things than in Vue.
 
-I think I performed at a middle level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
+I do not think I performed as a **senior** react developer. I think the code quality is of a **middle** level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
 
 As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** was wasted.
 
 As a **PO** or **Architect** I would put my best efforts to call **CTO** to avoid React.
-
-With the average salaries on US market of around $10.000 per month per middle developer, 3x increase in development time of a 3-developer team costs $30.000 on average per month.
 
 With better planning ahead, I could architect the data structures and the components better, saving Team's Human Hours and Product Budget.
 
