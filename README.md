@@ -149,6 +149,15 @@ So I moved it to **store** dir, made slight modifications to make it work, then 
 ![Screenshot](/readme-screenshot-007.png)
 
 
+### Tag v0.8
+
+```bash
+git checkout v0.8
+```
+
+At this point I simply copied page-two code to page-three code
+
+
 ## Summary
 
 All in all, the project took me around 20 hours, while in Vue it would take around 5 hours.

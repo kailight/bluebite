@@ -20,7 +20,8 @@ export default function Condition(props:ConditionComponentProps) {
 
         if (!conditionIsMet) {
             return (
-                <div>Condition is not met</div>
+                // <div>Condition is not met</div>
+                <></>
             )
         }
 

@@ -1,9 +1,26 @@
 import 'src/pages/Page.scss'
 import { useEffect, useState } from "react";
 
-import Image from 'src/components/Image/Image'
-import Weather from 'src/components/Weather/Weather'
-import Toggler from 'src/components/Toggler/Toggler'
+import ComponentList from "../components/ComponentList";
+
+import type {
+    IComponentTree,
+    IComponentList,
+    IComponentListItem,
+    IList,
+    IVariable,
+    IComponent,
+    IData
+} from 'src/types/index'
+
+// import useLists from "src/composables/useLists";
+// import useComponents from "src/composables/useComponents"
+// import useVariables from "src/composables/useVariables"
+// import useStore from "src/composables/useStore"
+// import useStore2 from "src/composables/useStore2"
+import useStore from "src/composables/useStore"
+
+// import { getItem } from "src/store";
 
 export default function PageTwo() {
 
@@ -12,53 +29,53 @@ export default function PageTwo() {
 
     const url = 'http://localhost:3030/page/page-three'
 
-    interface List {
-        id: any
-        components: any
-    }
+    // let { _, setVariables } = useStore2()
+    const {
+        variables,
+        setVariables,
+        lists,
+        setLists,
+        components,
+        setComponents
+    } = useStore()
 
-    interface Variable {
-        name: string // "show weather"
-        type: string // "string"
-        initialValue: string // "show"|"hide"
-    }
 
-    interface Data {
-        lists: Array<List>
-        variables ?: Array<Variable>
-    }
+    const [enabledLists, setEnabledLists] = useState([] as Array<any>)
 
-    interface ComponentList extends Array<ComponentListItem> {}
+    useEffect( () => {
 
-    interface ComponentListItem {
-        type: 'image'|'weather'|'toggler'
-        options: any
-    }
+        if (!lists.length) {
+            return () => {}
+        }
 
-    const [data,setData] = useState<Data>({ lists:[] } )
-    const [componentList, setComponentList] = useState<ComponentList>([])
+        const conditionalListsIds:Array<number> = []
+        components.forEach( ( component:IComponent ) => {
+            if (component.type === 'condition') {
+                conditionalListsIds.push(component.children)
+            }
+        })
+        const unconditionalLists = lists.filter( (list:IList) => {
+            return !conditionalListsIds.includes(list.id)
+        })
 
-    const components = {
-        image: Image,
-        weather: Weather,
-        toggler: Toggler
-    }
+        setEnabledLists( unconditionalLists )
+        console.info('enabledLists', enabledLists);
 
-    const ComponentFactory:(config:any) => JSX.Element = (config:ComponentListItem ) => {
-        let Component = components[config.type];
-        return (
-            <Component { ...config.options } />
-        )
-    }
+    }, [lists, components, variables] )
 
-    const toggleVariable = (variableName:string, variableValue: string) => {
-        console.info('toggleVariable()', variableName, variableValue);
-    }
+
+
+    useEffect( () => {
+        console.info('variables changed!');
+    }, [variables] )
+
+
 
     useEffect( () => {
 
         (async () => {
             const response = await fetch(url)
+
             let responseData:any
             if (response.ok) {
                 responseData = await response.json()
@@ -69,48 +86,17 @@ export default function PageTwo() {
                 return
             }
             const data = responseData.data
-
-            let componentsIds:Array<any> = []
-            const componentListConfig:ComponentList = []
-
-            data.lists.forEach( (list:List) => {
-                componentsIds = componentsIds.concat(list.components)
+            data.variables.forEach( (variable:IVariable) => {
+                variable.value = variable.initialValue
             })
-
-            data.variables.forEach( (variable:Variable) => {
-                const componentFactoryConfig:ComponentListItem = {
-                    type: 'toggler',
-                    options: {
-                        name: variable.name,
-                        value: variable.initialValue
-                    }
-                }
-                componentListConfig.push(componentFactoryConfig)
-            })
-
-            console.info('componentsIds',componentsIds);
-
-            componentsIds.forEach( ( componentId:number ) => {
-                const componentData = data.components.find( (c:any) => c.id === componentId )
-                const componentFactoryConfig = {
-                    type: componentData.type,
-                    options: componentData.options
-                }
-                /*
-                if (componentFactoryConfig.type === 'toggler') {
-                    componentFactoryConfig.options.onToggle = (variableName:string, variableValue: string) => {
-                        toggleVariable(variableName, variableValue)
-                    }
-                }
-                */
-                componentListConfig.push(componentFactoryConfig)
-            })
-
-            console.info('componentListConfig', componentListConfig);
 
             if (isMounted) {
-                setComponentList(componentListConfig)
+                setComponents(data.components)
+                setVariables(data.variables)
+                setLists(data.lists)
             }
+            return () => { isMounted = false }
+
         })()
     }, [])
 
@@ -118,10 +104,11 @@ export default function PageTwo() {
 
     return (
         <div className="page">
-            <code>{componentList}</code>
             {
-                componentList.map( (component:any, i:number) => {
-                    return (<ComponentFactory type={component.type} options={component.options} key={i} />)
+                enabledLists?.map( (list:IComponentList, i:number) => {
+                    return (
+                        <ComponentList id={list.id} key={i}></ComponentList>
+                    )
                 })
             }
         </div>
