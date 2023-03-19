@@ -136,15 +136,24 @@ To my surprise, it was required to be a Component.
 
 I would rather mutate original data or create a new nested data set and then base the ComponentList on it.
 
-I believe this would be 2x faster approach, and way easier to read as we could manipulate the data in one place.
+The complexity was because since Condition should be component, and because **Condition** is a Component that has **Lists** meaning recursion, very different approach with a store would be required to set the conditional recursion up.
+
+I'm against obscure solutions with a lot of boilerplate code.
+
+So while I know how to deal with React stores with useContext and useReducer, Redux and Zustand, I prefer to use
+[this simple solution](https://dev.to/fabionogueira/react-without-redux-simple-store-4don)
+ as my go-to tool for simple store.
+
+So I moved it to **store** dir, made slight modifications to make it work, then created a set of hooks in composables folder to simplify the usage of them for various cases to make the code more clean (meaning more simple to read, easier to maintain, **less Technical Debt**)
 
 ![Screenshot](/readme-screenshot-007.png)
 
 
-
 ## Summary
 
-All in all, the project took me around 10 hours to code in the flow, while in Vue it would take around 2. This is because of combination of my unfamiliarity with React infrastructure and approaches, and due to in React it actually takes more time for simple things than in Vue.
+All in all, the project took me around 20 hours, while in Vue it would take around 5.
+
+This is because I am not too familiar with React infrastructure and approaches, but also to in React it actually takes more time for simple things than in Vue.
 
 I think I performed at a middle level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
 
