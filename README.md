@@ -146,10 +146,10 @@ I prefer to use
 
 So I moved it to **store** dir, made slight modifications to make it work, then created a set of hooks in composables folder to simplify the usage of them for various cases to make the code more clean (meaning more simple to read, easier to maintain, **less Technical Debt**)
 
-### Tag v0.8
+### Tag v0.9
 
 ```bash
-git checkout v0.8
+git checkout v0.9
 ```
 
 At this point I simply copied page-two code to page-three code and made sure it all works properly
