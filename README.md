@@ -132,19 +132,25 @@ git checkout v0.7
 
 Before moving to part-three I noticed I forgot to implement **Conditions** component from part2.
 
-To my surprise, it was required to be a Component.
+To my surprise, **Conditions** were required to be a Component.
 
 So, I have reviewed the data structures once again (variables, lists, components)
 
 I noticed the extra complexity was because since Condition should be component, and because **Condition** is a Component that has **Lists** meaning recursion, very different approach with a store would be required to set the conditional recursion up.
 
-I'm against obscure solutions with a lot of boilerplate code such as useContext and useReducer, Redux and Zustand.
+I'm against obscure solutions with a lot of boilerplate code such as useContext and useReducer, Redux and even Zustand.
 
-I prefer to use
+So for React I prefer to use simple solution
 [this simple solution](https://dev.to/fabionogueira/react-without-redux-simple-store-4don)
- as my go-to tool for simple store.
+ as my go-to tool for storing data.
 
 So I moved it to **store** dir, made slight modifications to make it work, then created a set of hooks in composables folder to simplify the usage of them for various cases to make the code more clean (meaning more simple to read, easier to maintain, **less Technical Debt**)
+
+I created a set of hooks/composables in Vue style that allows for flexible compositional approach to data structures.
+
+Upon data request, the data is stored in flat data structures, and then it is transformed in composables when and where necessary.
+
+It is my preferable way to store the data manipulation in composables rather than components for extra flexibility as generally they often end up reused.
 
 ### Tag v0.9
 
@@ -172,9 +178,11 @@ During the task, I do not think I performed as a **Senior** react developer.
 I think the code quality is of a **middle** level of a React developer.
 Not sure if it shows my **Lead** or **Architect** Engineering capabilities.
 
-As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** could be wasted.
+As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan.
 
 As a **PO** or **Architect** I would put my best efforts to call out to **CTO** to have a discussion about using React.
+
+As a **CTO** I'd avoid using React.
 
 With better planning ahead, I could architect the data structures and the components better, saving Team's Human Hours and Product Budget.
 
