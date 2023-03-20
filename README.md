@@ -168,7 +168,9 @@ This is how you would render custom components in a loop conditionally in Vue:
 <Component v-for="(component,i) of components" v-if="isEnabled(ccmponent.conditions)" :is="component.type" :key="i" />
 ```
 
-I do not think I performed as a **senior** react developer. I think the code quality is of a **middle** level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
+During the task, I do not think I performed as a **Senior** react developer.
+I think the code quality is of a **middle** level of a React developer.
+Not sure if it shows my **Lead** or **Architect** Engineering capabilities.
 
 As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** could be wasted.
 
@@ -176,4 +178,4 @@ As a **PO** or **Architect** I would put my best efforts to call out to **CTO** 
 
 With better planning ahead, I could architect the data structures and the components better, saving Team's Human Hours and Product Budget.
 
-At this point of my career, I believe picking proper stack and setting up business processes are more sometimes more important than technological solutions or code quality.
+At this point of my career, I believe business processes such as communicating for picking proper stack and setting up the codebase is more sometimes more important for Code Quality and reducing possible Technical Debt than amount of developers.
