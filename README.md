@@ -170,7 +170,7 @@ This is how you would render custom components in a loop conditionally in Vue:
 
 I do not think I performed as a **senior** react developer. I think the code quality is of a **middle** level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
 
-As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** was wasted.
+As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** could be wasted.
 
 As a **PO** or **Architect** I would put my best efforts to call out to **CTO** to have a discussion about using React.
 
