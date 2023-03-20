@@ -117,7 +117,7 @@ git checkout v0.6
 
 Then, according to Project Requirements (original readme) I had to implement **Button** components.
 
-However, in frontend **button** is html **button** generally, so I'd rather call them **Toggler** instead for now to avoid ambiguity.
+**button** is html tag, so I'd rather call them **Toggler** (or something else like Switcher) instead for now to avoid ambiguity.
 
 As there were no eye icons in icons folder I had to download icons in SVG (I used [FontAwesome](https://fontawesome.com/download)) and then changed their color from black to white [using this service](https://deeditor.com/) (as I was too lazy to use svg instead of img)
 
@@ -162,11 +162,17 @@ All in all, the project took me around 20 hours, while in Vue it would take arou
 
 This is because I am not too familiar with React infrastructure and approaches, but also to in React it actually takes more time for simple things than in Vue.
 
+This is how you would render custom components in a loop conditionally in Vue:
+
+```vue
+<Component v-for="(component,i) of components" v-if="isEnabled(ccmponent.conditions)" :is="component.type" :key="i" />
+```
+
 I do not think I performed as a **senior** react developer. I think the code quality is of a **middle** level as a React developer, and not sure if it shows my **Lead** or **Architect** Engineering capabilities.
 
 As a **Team Lead** or **Manager**, I would have questions to either **PO** or **Architect**, as why the business processes are way too SCRUM and lack some sane Waterfall and provide a complete and clean Product Plan, as some **Development Time** and **Project Budget** was wasted.
 
-As a **PO** or **Architect** I would put my best efforts to call **CTO** to avoid React.
+As a **PO** or **Architect** I would put my best efforts to call out to **CTO** to have a discussion about using React.
 
 With better planning ahead, I could architect the data structures and the components better, saving Team's Human Hours and Product Budget.
 
